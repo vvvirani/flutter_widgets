@@ -10,8 +10,6 @@ class CountryPickerController extends ValueNotifier<CountryPickerValues> {
       : super(
           CountryPickerValues(
             countries: CountryUtils.countries,
-            countrySerachResult: CountrySerachResult.empty(),
-            stateSerachResult: StateSerachResult.empty(),
             isSearching: false,
           ),
         );
@@ -22,15 +20,9 @@ class CountryPickerController extends ValueNotifier<CountryPickerValues> {
         return (country.name.toLowerCase()).contains(query.toLowerCase());
       }).toList();
 
-      value = value.copyWith(
-        isSearching: true,
-        countrySerachResult: CountrySerachResult.fromResult(result),
-      );
+      value = value.copyWith(isSearching: true, searchedCountries: result);
     } else {
-      value = value.copyWith(
-        isSearching: false,
-        countrySerachResult: CountrySerachResult.empty(),
-      );
+      value = value.copyWith(isSearching: false, searchedCountries: []);
     }
   }
 
@@ -39,15 +31,9 @@ class CountryPickerController extends ValueNotifier<CountryPickerValues> {
       List<CState> result = value.states.where((state) {
         return (state.name.toLowerCase()).contains(query.toLowerCase());
       }).toList();
-      value = value.copyWith(
-        isSearching: true,
-        stateSerachResult: StateSerachResult.fromResult(result),
-      );
+      value = value.copyWith(isSearching: true, searchedStates: result);
     } else {
-      value = value.copyWith(
-        isSearching: false,
-        stateSerachResult: StateSerachResult.empty(),
-      );
+      value = value.copyWith(isSearching: false, searchedStates: []);
     }
   }
 
@@ -57,22 +43,22 @@ class CountryPickerController extends ValueNotifier<CountryPickerValues> {
   }
 
   List<Country> get countries {
-    return _isSearching ? value.countrySerachResult.countries : value.countries;
+    return _isSearching ? value.searchedCountries : value.countries;
   }
 
   Country getCountryByIndex(int index) {
     return _isSearching
-        ? value.countrySerachResult.countries.elementAt(index)
+        ? value.searchedCountries.elementAt(index)
         : value.countries.elementAt(index);
   }
 
   List<CState> get cStates {
-    return _isSearching ? value.stateSerachResult.states : value.states;
+    return _isSearching ? value.searchedStates : value.states;
   }
 
   CState getStateByIndex(int index) {
     return _isSearching
-        ? value.stateSerachResult.states.elementAt(index)
+        ? value.searchedStates.elementAt(index)
         : value.states.elementAt(index);
   }
 
