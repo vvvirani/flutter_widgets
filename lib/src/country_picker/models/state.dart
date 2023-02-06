@@ -3,21 +3,21 @@ class CState {
   final String name;
   final int countryId;
   final String countryCode;
-  final String countryName;
+  final String? countryName;
   final String stateCode;
   final dynamic type;
-  final String latitude;
-  final String longitude;
+  final String? latitude;
+  final String? longitude;
 
   CState({
     required this.id,
     required this.name,
     required this.countryId,
     required this.countryCode,
-    required this.countryName,
+    this.countryName,
     required this.stateCode,
-    required this.latitude,
-    required this.longitude,
+    this.latitude,
+    this.longitude,
     this.type,
   });
 
