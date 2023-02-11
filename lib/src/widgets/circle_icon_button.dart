@@ -5,6 +5,7 @@ class CircleIconButton extends StatelessWidget {
   final Color? backgroundColor;
   final Widget child;
   final double? size;
+  final BoxBorder? border;
   final VoidCallback onPressed;
   final List<BoxShadow>? boxShadow;
 
@@ -17,6 +18,7 @@ class CircleIconButton extends StatelessWidget {
     this.color,
     this.boxShadow,
     this.size,
+    this.border,
   }) : child = Padding(
           padding: padding ?? EdgeInsets.zero,
           child: child,
@@ -31,6 +33,7 @@ class CircleIconButton extends StatelessWidget {
     this.color,
     this.boxShadow,
     this.size,
+    this.border,
   }) : child = Icon(icon, size: iconSize, color: color);
 
   @override
@@ -41,6 +44,7 @@ class CircleIconButton extends StatelessWidget {
         shape: BoxShape.circle,
         color: backgroundColor ?? Colors.transparent,
         boxShadow: boxShadow,
+        border: border,
       ),
       child: MaterialButton(
         color: backgroundColor,
